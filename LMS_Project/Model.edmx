@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="leave_managementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="emp_leave_availability">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="casual_leave" Type="int" />
+          <Property Name="halfday" Type="int" />
+          <Property Name="short_day" Type="int" />
+          <Property Name="sick_leave" Type="int" />
+          <Property Name="maternity_leave" Type="int" />
+          <Property Name="study_leave" Type="int" />
+          <Property Name="work_years" Type="float" />
+        </EntityType>
+        <EntityType Name="emp_log">
+          <Key>
+            <PropertyRef Name="log_id" />
+          </Key>
+          <Property Name="log_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="emp_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="user_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="employees">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tel_no" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="department" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="post" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="manager" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="gender" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="joined_date" Type="date" Nullable="false" />
+          <Property Name="email_password" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="leave_types">
+          <Key>
+            <PropertyRef Name="leave_type_id" />
+          </Key>
+          <Property Name="leave_type_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="half_day" Type="int" />
+          <Property Name="short_leave" Type="int" />
+          <Property Name="sick_leave" Type="int" />
+          <Property Name="maternity_leave" Type="int" />
+          <Property Name="study_leave" Type="int" />
+          <Property Name="casual_leave" Type="int" />
+          <Property Name="work_years" Type="float" />
+        </EntityType>
+        <EntityType Name="leaves">
+          <Key>
+            <PropertyRef Name="leave_id" />
+          </Key>
+          <Property Name="leave_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="emp_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="start_date" Type="date" Nullable="false" />
+          <Property Name="end_date" Type="date" Nullable="false" />
+          <Property Name="reason" Type="varchar" MaxLength="250" />
+          <Property Name="status" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="authorized_by" Type="varchar" MaxLength="50" />
+          <Property Name="duration" Type="int" />
+        </EntityType>
+        <EntityContainer Name="leave_managementModelStoreContainer">
+          <EntitySet Name="emp_leave_availability" EntityType="Self.emp_leave_availability" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="emp_log" EntityType="Self.emp_log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employees" EntityType="Self.employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="leave_types" EntityType="Self.leave_types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="leaves" EntityType="Self.leaves" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="leave_managementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="emp_log">
+          <Key>
+            <PropertyRef Name="log_id" />
+          </Key>
+          <Property Name="log_id" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="emp_id" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="user_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="employee" Relationship="Self.FK_emp_log_ToTable" FromRole="emp_log" ToRole="employees" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tel_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="department" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="post" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="manager" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="emp_log" Relationship="Self.FK_emp_log_ToTable" FromRole="employees" ToRole="emp_log" />
+          <NavigationProperty Name="leaves" Relationship="Self.FK_leaves_ToTable" FromRole="employees" ToRole="leaves" />
+          <Property Name="gender" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="joined_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="email_password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="leaves">
+          <Key>
+            <PropertyRef Name="leave_id" />
+          </Key>
+          <Property Name="leave_id" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="emp_id" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="start_date" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="end_date" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="duration" Type="Int32" />
+          <Property Name="reason" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="authorized_by" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="employee" Relationship="Self.FK_leaves_ToTable" FromRole="leaves" ToRole="employees" />
+        </EntityType>
+        <Association Name="FK_emp_log_ToTable">
+          <End Role="employees" Type="Self.employee" Multiplicity="1" />
+          <End Role="emp_log" Type="Self.emp_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="emp_id" />
+            </Principal>
+            <Dependent Role="emp_log">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_leaves_ToTable">
+          <End Role="employees" Type="Self.employee" Multiplicity="1" />
+          <End Role="leaves" Type="leave_managementModel.leaves" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="emp_id" />
+            </Principal>
+            <Dependent Role="leaves">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="leave_managementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="emp_log" EntityType="Self.emp_log" />
+          <EntitySet Name="employees" EntityType="Self.employee" />
+          <EntitySet Name="leaves1" EntityType="leave_managementModel.leaves" />
+          <AssociationSet Name="FK_emp_log_ToTable" Association="Self.FK_emp_log_ToTable">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="emp_log" EntitySet="emp_log" />
+          </AssociationSet>
+          <AssociationSet Name="FK_leaves_ToTable" Association="Self.FK_leaves_ToTable">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="leaves" EntitySet="leaves1" />
+          </AssociationSet>
+          <EntitySet Name="emp_leave_availability" EntityType="leave_managementModel.emp_leave_availability" />
+          <EntitySet Name="leave_types" EntityType="leave_managementModel.leave_types" />
+        </EntityContainer>
+        <EntityType Name="emp_leave_availability">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="halfday" Type="Int32" />
+          <Property Name="short_day" Type="Int32" />
+          <Property Name="sick_leave" Type="Int32" />
+          <Property Name="maternity_leave" Type="Int32" />
+          <Property Name="study_leave" Type="Int32" />
+          <Property Name="work_years" Type="Double" />
+          <Property Name="casual_leave" Type="Int32" />
+        </EntityType>
+        <EntityType Name="leave_types">
+          <Key>
+            <PropertyRef Name="leave_type_id" />
+          </Key>
+          <Property Name="leave_type_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="half_day" Type="Int32" />
+          <Property Name="short_leave" Type="Int32" />
+          <Property Name="sick_leave" Type="Int32" />
+          <Property Name="maternity_leave" Type="Int32" />
+          <Property Name="study_leave" Type="Int32" />
+          <Property Name="work_years" Type="Double" />
+          <Property Name="casual_leave" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="leave_managementModelStoreContainer" CdmEntityContainer="leave_managementEntities">
+          <EntitySetMapping Name="emp_log">
+            <EntityTypeMapping TypeName="leave_managementModel.emp_log">
+              <MappingFragment StoreEntitySet="emp_log">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="log_id" ColumnName="log_id" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="leave_managementModel.employee">
+              <MappingFragment StoreEntitySet="employees">
+                <ScalarProperty Name="email_password" ColumnName="email_password" />
+                <ScalarProperty Name="joined_date" ColumnName="joined_date" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="tel_no" ColumnName="tel_no" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="post" ColumnName="post" />
+                <ScalarProperty Name="manager" ColumnName="manager" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="leaves1">
+            <EntityTypeMapping TypeName="leave_managementModel.leaves">
+              <MappingFragment StoreEntitySet="leaves">
+                <ScalarProperty Name="leave_id" ColumnName="leave_id" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="authorized_by" ColumnName="authorized_by" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="emp_leave_availability">
+            <EntityTypeMapping TypeName="leave_managementModel.emp_leave_availability">
+              <MappingFragment StoreEntitySet="emp_leave_availability">
+                <ScalarProperty Name="casual_leave" ColumnName="casual_leave" />
+                <ScalarProperty Name="work_years" ColumnName="work_years" />
+                <ScalarProperty Name="study_leave" ColumnName="study_leave" />
+                <ScalarProperty Name="maternity_leave" ColumnName="maternity_leave" />
+                <ScalarProperty Name="sick_leave" ColumnName="sick_leave" />
+                <ScalarProperty Name="short_day" ColumnName="short_day" />
+                <ScalarProperty Name="halfday" ColumnName="halfday" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="leave_types">
+            <EntityTypeMapping TypeName="leave_managementModel.leave_types">
+              <MappingFragment StoreEntitySet="leave_types">
+                <ScalarProperty Name="casual_leave" ColumnName="casual_leave" />
+                <ScalarProperty Name="work_years" ColumnName="work_years" />
+                <ScalarProperty Name="study_leave" ColumnName="study_leave" />
+                <ScalarProperty Name="maternity_leave" ColumnName="maternity_leave" />
+                <ScalarProperty Name="sick_leave" ColumnName="sick_leave" />
+                <ScalarProperty Name="short_leave" ColumnName="short_leave" />
+                <ScalarProperty Name="half_day" ColumnName="half_day" />
+                <ScalarProperty Name="leave_type_id" ColumnName="leave_type_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
